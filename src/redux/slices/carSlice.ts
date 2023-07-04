@@ -1,24 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { ICarObj } from '../../types';
 
 export const fetchCars = createAsyncThunk('cars/fetchCars', async () => {
   const res = await fetch('https://myfakeapi.com/api/cars/');
 
-  const data = await res.json();
-  console.log(data);
+  const { cars } = await res.json();
+  console.log(cars);
 
-  return data;
+  return cars;
 });
-
-interface ICarObj {
-  id: number;
-  car: string;
-  car_model: string;
-  car_color: string;
-  car_model_year: number;
-  car_vin: string;
-  price: string;
-  availability: boolean;
-}
 
 interface CarsState {
   carsList: ICarObj[];
