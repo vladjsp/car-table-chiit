@@ -13,11 +13,13 @@ export const fetchCars = createAsyncThunk('cars/fetchCars', async () => {
 interface CarsState {
   carsList: ICarObj[];
   requestStatus: 'loading' | 'success' | 'error';
+  searchValue?: '';
 }
 
 const initialState = {
   carsList: [],
-  requestStatus: 'loading', //loading | success | error
+  requestStatus: 'loading',
+  searchValue: '',
 } as CarsState;
 
 const carsSlice = createSlice({
@@ -26,6 +28,12 @@ const carsSlice = createSlice({
   reducers: {
     setCars(state, action) {
       state.carsList = action.payload;
+    },
+    setSearchValue(state, action) {
+      state.searchValue = action.payload;
+    },
+    setNewCar(state, action) {
+      state.carsList.push(action.payload);
     },
   },
   extraReducers: {
@@ -44,6 +52,6 @@ const carsSlice = createSlice({
   },
 });
 
-export const { setCars } = carsSlice.actions;
+export const { setCars, setSearchValue, setNewCar } = carsSlice.actions;
 
 export default carsSlice.reducer;

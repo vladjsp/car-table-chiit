@@ -1,31 +1,31 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import debounce from 'lodash.debounce';
 import { TextField, InputAdornment } from '@mui/material';
 import { SearchOutlined } from '@mui/icons-material';
 
+import { setSearchValue } from '../redux/slices/carSlice';
+
 const Search = () => {
-  const [search, setSearch] = useState('');
-  // const onClickClear = () => {
-  //   setValue('');
-  //   dispatch(setSearchValue(''));
-  //   inputRef.current.focus();
-  // };
+  const dispatch = useDispatch();
+  const [value, setValue] = useState('');
 
-  // const updateSearchValue = useCallback(
-  //   debounce((str) => {
-  //     dispatch(setSearchValue(str));
-  //   }, 500),
-  //   []
-  // );
+  const updateSearchValue = useCallback(
+    debounce((str) => {
+      dispatch(setSearchValue(str));
+    }, 500),
+    []
+  );
 
-  const onInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(event.target.value);
-    //updateSearchValue(event.target.value);
+  const onChangeInput = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setValue(event.target.value);
+    updateSearchValue(event.target.value);
   };
 
   return (
     <TextField
-      value={search}
-      onChange={onInput}
+      value={value}
+      onChange={(event) => onChangeInput(event)}
       id='outlined-basic'
       label='Search'
       type='search'
