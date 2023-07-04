@@ -10,12 +10,12 @@ import {
   Paper,
   TablePagination,
 } from '@mui/material';
-import { carsLocal } from './constants';
+//import { carsLocal } from './constants';
 import ActionSelect from './ActionSelect';
 import { useState } from 'react';
 
 const CarsTable = () => {
-  //const { carsList } = useSelector((state) => state.cars);
+  const { carsList } = useSelector((state) => state.cars);
   const { searchValue } = useSelector((state) => state.cars);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -29,8 +29,8 @@ const CarsTable = () => {
     setPage(0);
   };
 
-  const filteredList = carsLocal.filter(
-    (obj) =>
+  const filteredList = carsList.filter(
+    (obj: ICarObj) =>
       obj.car.toLocaleLowerCase().includes(searchValue.toLowerCase()) ||
       obj.car_model.toLocaleLowerCase().includes(searchValue.toLowerCase()) ||
       obj.car_color.toLocaleLowerCase().includes(searchValue.toLowerCase())

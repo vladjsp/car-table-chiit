@@ -14,11 +14,11 @@ function App() {
   const [openAddCarModal, setOpenAddCarModal] = useState(false);
 
   const getCars = () => {
-    //dispatch(fetchCars());
+    dispatch(fetchCars());
   };
 
   useEffect(() => {
-    //getCars();
+    getCars();
   }, []);
 
   const handleAddCar = (newCar: ICarObj) => {

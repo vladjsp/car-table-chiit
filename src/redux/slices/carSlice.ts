@@ -35,6 +35,20 @@ const carsSlice = createSlice({
     setNewCar(state, action) {
       state.carsList.push(action.payload);
     },
+    deleteCar(state, action) {
+      state.carsList = state.carsList.filter((obj) => obj.id !== action.payload);
+    },
+    updateCar(state, action) {
+      state.carsList = state.carsList.map((car) => {
+        if (car.id === action.payload.id) {
+          return {
+            ...car,
+            ...action.payload,
+          };
+        }
+        return car;
+      });
+    },
   },
   extraReducers: {
     [fetchCars.pending]: (state: CarsState) => {
@@ -52,6 +66,6 @@ const carsSlice = createSlice({
   },
 });
 
-export const { setCars, setSearchValue, setNewCar } = carsSlice.actions;
+export const { setCars, setSearchValue, setNewCar, deleteCar, updateCar } = carsSlice.actions;
 
 export default carsSlice.reducer;
